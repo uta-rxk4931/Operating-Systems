@@ -1,0 +1,143 @@
+
+build/release/crash2.elf:     file format elf32-littleriscv
+build/release/crash2.elf
+architecture: riscv:rv32, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x08005000
+
+Program Header:
+    LOAD off    0x00001000 vaddr 0x08005000 paddr 0x08005000 align 2**12
+         filesz 0x000001b0 memsz 0x000009b0 flags rwx
+
+Sections:
+Idx Name              Size      VMA       LMA       File off  Algn  Flags
+  0 .text             00000168  08005000  08005000  00001000  2**3  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .rodata           00000040  08005168  08005168  00001168  2**3  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  2 .data             00000008  080051a8  080051a8  000011a8  2**3  CONTENTS, ALLOC, LOAD, DATA
+  3 .heap             00000800  080051b0  080051b0  000011b0  2**3  ALLOC
+  4 .riscv.attributes 0000001c  00000000  00000000  000011b0  2**0  CONTENTS, READONLY
+  5 .comment          00000028  00000000  00000000  000011cc  2**0  CONTENTS, READONLY
+SYMBOL TABLE:
+08005000 l    d  .text	00000000 .text
+08005168 l    d  .rodata	00000000 .rodata
+080051a8 l    d  .data	00000000 .data
+080051b0 l    d  .heap	00000000 .heap
+00000000 l    d  .riscv.attributes	00000000 .riscv.attributes
+00000000 l    d  .comment	00000000 .comment
+00000000 l    df *ABS*	00000000 servers.c
+00000000 l    df *ABS*	00000000 crash2.c
+080051ac g     O .data	00000004 earth
+00000800 g       *ABS*	00000000 __heap_size
+080051a8 g     O .data	00000004 grass
+0800508c g     F .text	000000dc memset
+0800503c g     F .text	00000050 main
+08005000 g       .text	00000000 _enter
+08008000 g       *ABS*	00000000 __heap_end
+080051b0 g       .heap	00000000 __heap_start
+08005010 g     F .text	0000002c exit
+
+
+
+Disassembly of section .text:
+
+08005000 <_enter>:
+_enter():
+ 8005000:	00052503          	lw	a0,0(a0)
+ 8005004:	80002137          	lui	sp,0x80002
+ 8005008:	034000ef          	jal	ra,800503c <main>
+ 800500c:	004000ef          	jal	ra,8005010 <exit>
+
+08005010 <exit>:
+exit():
+ 8005010:	fe010113          	addi	sp,sp,-32 # 80001fe0 <__heap_end+0x77ff9fe0>
+ 8005014:	00112e23          	sw	ra,28(sp)
+ 8005018:	00812c23          	sw	s0,24(sp)
+ 800501c:	02010413          	addi	s0,sp,32
+ 8005020:	fea42623          	sw	a0,-20(s0)
+ 8005024:	080057b7          	lui	a5,0x8005
+ 8005028:	1a87a783          	lw	a5,424(a5) # 80051a8 <grass>
+ 800502c:	0a47a783          	lw	a5,164(a5)
+ 8005030:	fec42503          	lw	a0,-20(s0)
+ 8005034:	000780e7          	jalr	a5
+ 8005038:	0000006f          	j	8005038 <exit+0x28>
+
+0800503c <main>:
+main():
+ 800503c:	ff010113          	addi	sp,sp,-16
+ 8005040:	00112623          	sw	ra,12(sp)
+ 8005044:	00812423          	sw	s0,8(sp)
+ 8005048:	01010413          	addi	s0,sp,16
+ 800504c:	0001c637          	lui	a2,0x1c
+ 8005050:	00000593          	li	a1,0
+ 8005054:	80004537          	lui	a0,0x80004
+ 8005058:	034000ef          	jal	ra,800508c <memset>
+ 800505c:	080057b7          	lui	a5,0x8005
+ 8005060:	1ac7a783          	lw	a5,428(a5) # 80051ac <earth>
+ 8005064:	0407a703          	lw	a4,64(a5)
+ 8005068:	080057b7          	lui	a5,0x8005
+ 800506c:	16878513          	addi	a0,a5,360 # 8005168 <memset+0xdc>
+ 8005070:	000700e7          	jalr	a4
+ 8005074:	00000793          	li	a5,0
+ 8005078:	00078513          	mv	a0,a5
+ 800507c:	00c12083          	lw	ra,12(sp)
+ 8005080:	00812403          	lw	s0,8(sp)
+ 8005084:	01010113          	addi	sp,sp,16
+ 8005088:	00008067          	ret
+
+0800508c <memset>:
+memset():
+ 800508c:	00f00313          	li	t1,15
+ 8005090:	00050713          	mv	a4,a0
+ 8005094:	02c37e63          	bgeu	t1,a2,80050d0 <memset+0x44>
+ 8005098:	00f77793          	andi	a5,a4,15
+ 800509c:	0a079063          	bnez	a5,800513c <memset+0xb0>
+ 80050a0:	08059263          	bnez	a1,8005124 <memset+0x98>
+ 80050a4:	ff067693          	andi	a3,a2,-16
+ 80050a8:	00f67613          	andi	a2,a2,15
+ 80050ac:	00e686b3          	add	a3,a3,a4
+ 80050b0:	00b72023          	sw	a1,0(a4)
+ 80050b4:	00b72223          	sw	a1,4(a4)
+ 80050b8:	00b72423          	sw	a1,8(a4)
+ 80050bc:	00b72623          	sw	a1,12(a4)
+ 80050c0:	01070713          	addi	a4,a4,16
+ 80050c4:	fed766e3          	bltu	a4,a3,80050b0 <memset+0x24>
+ 80050c8:	00061463          	bnez	a2,80050d0 <memset+0x44>
+ 80050cc:	00008067          	ret
+ 80050d0:	40c306b3          	sub	a3,t1,a2
+ 80050d4:	00269693          	slli	a3,a3,0x2
+ 80050d8:	00000297          	auipc	t0,0x0
+ 80050dc:	005686b3          	add	a3,a3,t0
+ 80050e0:	00c68067          	jr	12(a3)
+ 80050e4:	00b70723          	sb	a1,14(a4)
+ 80050e8:	00b706a3          	sb	a1,13(a4)
+ 80050ec:	00b70623          	sb	a1,12(a4)
+ 80050f0:	00b705a3          	sb	a1,11(a4)
+ 80050f4:	00b70523          	sb	a1,10(a4)
+ 80050f8:	00b704a3          	sb	a1,9(a4)
+ 80050fc:	00b70423          	sb	a1,8(a4)
+ 8005100:	00b703a3          	sb	a1,7(a4)
+ 8005104:	00b70323          	sb	a1,6(a4)
+ 8005108:	00b702a3          	sb	a1,5(a4)
+ 800510c:	00b70223          	sb	a1,4(a4)
+ 8005110:	00b701a3          	sb	a1,3(a4)
+ 8005114:	00b70123          	sb	a1,2(a4)
+ 8005118:	00b700a3          	sb	a1,1(a4)
+ 800511c:	00b70023          	sb	a1,0(a4)
+ 8005120:	00008067          	ret
+ 8005124:	0ff5f593          	andi	a1,a1,255
+ 8005128:	00859693          	slli	a3,a1,0x8
+ 800512c:	00d5e5b3          	or	a1,a1,a3
+ 8005130:	01059693          	slli	a3,a1,0x10
+ 8005134:	00d5e5b3          	or	a1,a1,a3
+ 8005138:	f6dff06f          	j	80050a4 <memset+0x18>
+ 800513c:	00279693          	slli	a3,a5,0x2
+ 8005140:	00000297          	auipc	t0,0x0
+ 8005144:	005686b3          	add	a3,a3,t0
+ 8005148:	00008293          	mv	t0,ra
+ 800514c:	fa0680e7          	jalr	-96(a3)
+ 8005150:	00028093          	mv	ra,t0
+ 8005154:	ff078793          	addi	a5,a5,-16
+ 8005158:	40f70733          	sub	a4,a4,a5
+ 800515c:	00f60633          	add	a2,a2,a5
+ 8005160:	f6c378e3          	bgeu	t1,a2,80050d0 <memset+0x44>
+ 8005164:	f3dff06f          	j	80050a0 <memset+0x14>

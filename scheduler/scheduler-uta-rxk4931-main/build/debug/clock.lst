@@ -1,0 +1,450 @@
+
+build/release/clock.elf:     file format elf32-littleriscv
+build/release/clock.elf
+architecture: riscv:rv32, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x08005000
+
+Program Header:
+    LOAD off    0x00001000 vaddr 0x08005000 paddr 0x08005000 align 2**12
+         filesz 0x000009d4 memsz 0x000011d8 flags rwx
+
+Sections:
+Idx Name              Size      VMA       LMA       File off  Algn  Flags
+  0 .text             00000480  08005000  08005000  00001000  2**3  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .rodata           00000120  08005480  08005480  00001480  2**3  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  2 .data             00000434  080055a0  080055a0  000015a0  2**3  CONTENTS, ALLOC, LOAD, DATA
+  3 .heap             00000800  080059d8  080059d8  000019d4  2**3  ALLOC
+  4 .riscv.attributes 0000001c  00000000  00000000  000019d4  2**0  CONTENTS, READONLY
+  5 .comment          00000028  00000000  00000000  000019f0  2**0  CONTENTS, READONLY
+  6 .debug_line       00000202  00000000  00000000  00001a18  2**0  CONTENTS, READONLY, DEBUGGING
+  7 .debug_info       0000004c  00000000  00000000  00001c1a  2**0  CONTENTS, READONLY, DEBUGGING
+  8 .debug_abbrev     00000028  00000000  00000000  00001c66  2**0  CONTENTS, READONLY, DEBUGGING
+  9 .debug_aranges    00000040  00000000  00000000  00001c90  2**3  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str        00000141  00000000  00000000  00001cd0  2**0  CONTENTS, READONLY, DEBUGGING
+SYMBOL TABLE:
+08005000 l    d  .text	00000000 .text
+08005480 l    d  .rodata	00000000 .rodata
+080055a0 l    d  .data	00000000 .data
+080059d8 l    d  .heap	00000000 .heap
+00000000 l    d  .riscv.attributes	00000000 .riscv.attributes
+00000000 l    d  .comment	00000000 .comment
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    df *ABS*	00000000 servers.c
+00000000 l    df *ABS*	00000000 clock.c
+00000000 l    df *ABS*	00000000 atoi.c
+00000000 l    df *ABS*	00000000 strtol.c
+08005120 l     F .text	0000024c _strtol_l.isra.0
+00000000 l    df *ABS*	00000000 ctype_.c
+00000000 l    df *ABS*	00000000 impure.c
+080055a0 l     O .data	00000428 impure_data
+080053d4 g     F .text	00000048 .hidden __udivsi3
+080059cc g     O .data	00000004 earth
+08005370 g     F .text	0000001c strtol_l
+0800538c g     F .text	0000001c strtol
+00000800 g       *ABS*	00000000 __heap_size
+0800541c g     F .text	00000010 .hidden __umodsi3
+08005114 g     F .text	0000000c _atoi_r
+080059c8 g     O .data	00000004 grass
+080053a8 g     F .text	00000024 .hidden __mulsi3
+0800503c g     F .text	000000cc main
+0800536c g     F .text	00000004 _strtol_r
+080053cc g     F .text	00000084 .hidden __divsi3
+08005000 g       .text	00000000 _enter
+08008000 g       *ABS*	00000000 __heap_end
+080059d0 g     O .data	00000004 _impure_ptr
+080059d8 g       .heap	00000000 __heap_start
+08005010 g     F .text	0000002c exit
+08005450 g     F .text	00000030 .hidden __modsi3
+08005108 g     F .text	0000000c atoi
+08005498 g     O .rodata	00000101 _ctype_
+
+
+
+Disassembly of section .text:
+
+08005000 <_enter>:
+_enter():
+ 8005000:	00052503          	lw	a0,0(a0)
+ 8005004:	80002137          	lui	sp,0x80002
+ 8005008:	034000ef          	jal	ra,800503c <main>
+ 800500c:	004000ef          	jal	ra,8005010 <exit>
+
+08005010 <exit>:
+exit():
+ 8005010:	fe010113          	addi	sp,sp,-32 # 80001fe0 <__heap_end+0x77ff9fe0>
+ 8005014:	00112e23          	sw	ra,28(sp)
+ 8005018:	00812c23          	sw	s0,24(sp)
+ 800501c:	02010413          	addi	s0,sp,32
+ 8005020:	fea42623          	sw	a0,-20(s0)
+ 8005024:	080067b7          	lui	a5,0x8006
+ 8005028:	9c87a783          	lw	a5,-1592(a5) # 80059c8 <grass>
+ 800502c:	0a47a783          	lw	a5,164(a5)
+ 8005030:	fec42503          	lw	a0,-20(s0)
+ 8005034:	000780e7          	jalr	a5
+ 8005038:	0000006f          	j	8005038 <exit+0x28>
+
+0800503c <main>:
+main():
+ 800503c:	fd010113          	addi	sp,sp,-48
+ 8005040:	02112623          	sw	ra,44(sp)
+ 8005044:	02812423          	sw	s0,40(sp)
+ 8005048:	03010413          	addi	s0,sp,48
+ 800504c:	fca42e23          	sw	a0,-36(s0)
+ 8005050:	fcb42c23          	sw	a1,-40(s0)
+ 8005054:	fdc42703          	lw	a4,-36(s0)
+ 8005058:	00100793          	li	a5,1
+ 800505c:	02f70063          	beq	a4,a5,800507c <main+0x40>
+ 8005060:	fd842783          	lw	a5,-40(s0)
+ 8005064:	00478793          	addi	a5,a5,4
+ 8005068:	0007a783          	lw	a5,0(a5)
+ 800506c:	00078513          	mv	a0,a5
+ 8005070:	098000ef          	jal	ra,8005108 <atoi>
+ 8005074:	00050793          	mv	a5,a0
+ 8005078:	0080006f          	j	8005080 <main+0x44>
+ 800507c:	3e800793          	li	a5,1000
+ 8005080:	fef42223          	sw	a5,-28(s0)
+ 8005084:	fe042623          	sw	zero,-20(s0)
+ 8005088:	05c0006f          	j	80050e4 <main+0xa8>
+ 800508c:	fe042423          	sw	zero,-24(s0)
+ 8005090:	0100006f          	j	80050a0 <main+0x64>
+ 8005094:	fe842783          	lw	a5,-24(s0)
+ 8005098:	00178793          	addi	a5,a5,1
+ 800509c:	fef42423          	sw	a5,-24(s0)
+ 80050a0:	fe842703          	lw	a4,-24(s0)
+ 80050a4:	004c57b7          	lui	a5,0x4c5
+ 80050a8:	b3f78793          	addi	a5,a5,-1217 # 4c4b3f <__heap_size+0x4c433f>
+ 80050ac:	fee7d4e3          	bge	a5,a4,8005094 <main+0x58>
+ 80050b0:	080067b7          	lui	a5,0x8006
+ 80050b4:	9cc7a783          	lw	a5,-1588(a5) # 80059cc <earth>
+ 80050b8:	0347a703          	lw	a4,52(a5)
+ 80050bc:	fec42783          	lw	a5,-20(s0)
+ 80050c0:	00178793          	addi	a5,a5,1
+ 80050c4:	fe442603          	lw	a2,-28(s0)
+ 80050c8:	00078593          	mv	a1,a5
+ 80050cc:	080057b7          	lui	a5,0x8005
+ 80050d0:	48078513          	addi	a0,a5,1152 # 8005480 <__modsi3+0x30>
+ 80050d4:	000700e7          	jalr	a4
+ 80050d8:	fec42783          	lw	a5,-20(s0)
+ 80050dc:	00178793          	addi	a5,a5,1
+ 80050e0:	fef42623          	sw	a5,-20(s0)
+ 80050e4:	fec42703          	lw	a4,-20(s0)
+ 80050e8:	fe442783          	lw	a5,-28(s0)
+ 80050ec:	faf740e3          	blt	a4,a5,800508c <main+0x50>
+ 80050f0:	00000793          	li	a5,0
+ 80050f4:	00078513          	mv	a0,a5
+ 80050f8:	02c12083          	lw	ra,44(sp)
+ 80050fc:	02812403          	lw	s0,40(sp)
+ 8005100:	03010113          	addi	sp,sp,48
+ 8005104:	00008067          	ret
+
+08005108 <atoi>:
+atoi():
+ 8005108:	00a00613          	li	a2,10
+ 800510c:	00000593          	li	a1,0
+ 8005110:	27c0006f          	j	800538c <strtol>
+
+08005114 <_atoi_r>:
+_atoi_r():
+ 8005114:	00a00693          	li	a3,10
+ 8005118:	00000613          	li	a2,0
+ 800511c:	2500006f          	j	800536c <_strtol_r>
+
+08005120 <_strtol_l.isra.0>:
+_strtol_l.isra.0():
+ 8005120:	fb010113          	addi	sp,sp,-80
+ 8005124:	03412c23          	sw	s4,56(sp)
+ 8005128:	03512a23          	sw	s5,52(sp)
+ 800512c:	03912223          	sw	s9,36(sp)
+ 8005130:	04112623          	sw	ra,76(sp)
+ 8005134:	00068c93          	mv	s9,a3
+ 8005138:	04812423          	sw	s0,72(sp)
+ 800513c:	04912223          	sw	s1,68(sp)
+ 8005140:	05212023          	sw	s2,64(sp)
+ 8005144:	03312e23          	sw	s3,60(sp)
+ 8005148:	03612823          	sw	s6,48(sp)
+ 800514c:	03712623          	sw	s7,44(sp)
+ 8005150:	03812423          	sw	s8,40(sp)
+ 8005154:	03a12023          	sw	s10,32(sp)
+ 8005158:	01b12e23          	sw	s11,28(sp)
+ 800515c:	00058a13          	mv	s4,a1
+ 8005160:	00a12623          	sw	a0,12(sp)
+ 8005164:	00060a93          	mv	s5,a2
+ 8005168:	00058793          	mv	a5,a1
+ 800516c:	00000697          	auipc	a3,0x0
+ 8005170:	32d68693          	addi	a3,a3,813 # 8005499 <_ctype_+0x1>
+ 8005174:	0080006f          	j	800517c <_strtol_l.isra.0+0x5c>
+ 8005178:	00048793          	mv	a5,s1
+ 800517c:	00178493          	addi	s1,a5,1
+ 8005180:	fff4c403          	lbu	s0,-1(s1)
+ 8005184:	00868733          	add	a4,a3,s0
+ 8005188:	00074703          	lbu	a4,0(a4)
+ 800518c:	00877713          	andi	a4,a4,8
+ 8005190:	fe0714e3          	bnez	a4,8005178 <_strtol_l.isra.0+0x58>
+ 8005194:	02d00713          	li	a4,45
+ 8005198:	16e40863          	beq	s0,a4,8005308 <_strtol_l.isra.0+0x1e8>
+ 800519c:	02b00713          	li	a4,43
+ 80051a0:	00000b93          	li	s7,0
+ 80051a4:	10e40e63          	beq	s0,a4,80052c0 <_strtol_l.isra.0+0x1a0>
+ 80051a8:	120c8463          	beqz	s9,80052d0 <_strtol_l.isra.0+0x1b0>
+ 80051ac:	01000793          	li	a5,16
+ 80051b0:	000c8913          	mv	s2,s9
+ 80051b4:	16fc8263          	beq	s9,a5,8005318 <_strtol_l.isra.0+0x1f8>
+ 80051b8:	800009b7          	lui	s3,0x80000
+ 80051bc:	000b9463          	bnez	s7,80051c4 <_strtol_l.isra.0+0xa4>
+ 80051c0:	fff9c993          	not	s3,s3
+ 80051c4:	00090593          	mv	a1,s2
+ 80051c8:	00098513          	mv	a0,s3
+ 80051cc:	250000ef          	jal	ra,800541c <__umodsi3>
+ 80051d0:	00a12423          	sw	a0,8(sp)
+ 80051d4:	00090593          	mv	a1,s2
+ 80051d8:	00098513          	mv	a0,s3
+ 80051dc:	1f8000ef          	jal	ra,80053d4 <__udivsi3>
+ 80051e0:	00900d13          	li	s10,9
+ 80051e4:	fd040793          	addi	a5,s0,-48
+ 80051e8:	00050c13          	mv	s8,a0
+ 80051ec:	00000713          	li	a4,0
+ 80051f0:	00000593          	li	a1,0
+ 80051f4:	01900b13          	li	s6,25
+ 80051f8:	fff00d93          	li	s11,-1
+ 80051fc:	02fd6e63          	bltu	s10,a5,8005238 <_strtol_l.isra.0+0x118>
+ 8005200:	00078413          	mv	s0,a5
+ 8005204:	05945263          	bge	s0,s9,8005248 <_strtol_l.isra.0+0x128>
+ 8005208:	03b70063          	beq	a4,s11,8005228 <_strtol_l.isra.0+0x108>
+ 800520c:	fff00713          	li	a4,-1
+ 8005210:	00bc6c63          	bltu	s8,a1,8005228 <_strtol_l.isra.0+0x108>
+ 8005214:	0abc0063          	beq	s8,a1,80052b4 <_strtol_l.isra.0+0x194>
+ 8005218:	00090513          	mv	a0,s2
+ 800521c:	18c000ef          	jal	ra,80053a8 <__mulsi3>
+ 8005220:	00a405b3          	add	a1,s0,a0
+ 8005224:	00100713          	li	a4,1
+ 8005228:	00148493          	addi	s1,s1,1
+ 800522c:	fff4c403          	lbu	s0,-1(s1)
+ 8005230:	fd040793          	addi	a5,s0,-48
+ 8005234:	fcfd76e3          	bgeu	s10,a5,8005200 <_strtol_l.isra.0+0xe0>
+ 8005238:	fbf40793          	addi	a5,s0,-65
+ 800523c:	06fb6463          	bltu	s6,a5,80052a4 <_strtol_l.isra.0+0x184>
+ 8005240:	fc940413          	addi	s0,s0,-55
+ 8005244:	fd9442e3          	blt	s0,s9,8005208 <_strtol_l.isra.0+0xe8>
+ 8005248:	fff00793          	li	a5,-1
+ 800524c:	08f70c63          	beq	a4,a5,80052e4 <_strtol_l.isra.0+0x1c4>
+ 8005250:	000b8463          	beqz	s7,8005258 <_strtol_l.isra.0+0x138>
+ 8005254:	40b005b3          	neg	a1,a1
+ 8005258:	000a8663          	beqz	s5,8005264 <_strtol_l.isra.0+0x144>
+ 800525c:	0c071e63          	bnez	a4,8005338 <_strtol_l.isra.0+0x218>
+ 8005260:	014aa023          	sw	s4,0(s5)
+ 8005264:	04c12083          	lw	ra,76(sp)
+ 8005268:	04812403          	lw	s0,72(sp)
+ 800526c:	04412483          	lw	s1,68(sp)
+ 8005270:	04012903          	lw	s2,64(sp)
+ 8005274:	03c12983          	lw	s3,60(sp)
+ 8005278:	03812a03          	lw	s4,56(sp)
+ 800527c:	03412a83          	lw	s5,52(sp)
+ 8005280:	03012b03          	lw	s6,48(sp)
+ 8005284:	02c12b83          	lw	s7,44(sp)
+ 8005288:	02812c03          	lw	s8,40(sp)
+ 800528c:	02412c83          	lw	s9,36(sp)
+ 8005290:	02012d03          	lw	s10,32(sp)
+ 8005294:	01c12d83          	lw	s11,28(sp)
+ 8005298:	00058513          	mv	a0,a1
+ 800529c:	05010113          	addi	sp,sp,80
+ 80052a0:	00008067          	ret
+ 80052a4:	f9f40793          	addi	a5,s0,-97
+ 80052a8:	fafb60e3          	bltu	s6,a5,8005248 <_strtol_l.isra.0+0x128>
+ 80052ac:	fa940413          	addi	s0,s0,-87
+ 80052b0:	f55ff06f          	j	8005204 <_strtol_l.isra.0+0xe4>
+ 80052b4:	00812783          	lw	a5,8(sp)
+ 80052b8:	f687c8e3          	blt	a5,s0,8005228 <_strtol_l.isra.0+0x108>
+ 80052bc:	f5dff06f          	j	8005218 <_strtol_l.isra.0+0xf8>
+ 80052c0:	0004c403          	lbu	s0,0(s1)
+ 80052c4:	00000b93          	li	s7,0
+ 80052c8:	00278493          	addi	s1,a5,2
+ 80052cc:	ee0c90e3          	bnez	s9,80051ac <_strtol_l.isra.0+0x8c>
+ 80052d0:	03000793          	li	a5,48
+ 80052d4:	06f40663          	beq	s0,a5,8005340 <_strtol_l.isra.0+0x220>
+ 80052d8:	00a00913          	li	s2,10
+ 80052dc:	00a00c93          	li	s9,10
+ 80052e0:	ed9ff06f          	j	80051b8 <_strtol_l.isra.0+0x98>
+ 80052e4:	00c12703          	lw	a4,12(sp)
+ 80052e8:	02200793          	li	a5,34
+ 80052ec:	00098593          	mv	a1,s3
+ 80052f0:	00f72023          	sw	a5,0(a4)
+ 80052f4:	f60a88e3          	beqz	s5,8005264 <_strtol_l.isra.0+0x144>
+ 80052f8:	fff48a13          	addi	s4,s1,-1
+ 80052fc:	00098593          	mv	a1,s3
+ 8005300:	014aa023          	sw	s4,0(s5)
+ 8005304:	f61ff06f          	j	8005264 <_strtol_l.isra.0+0x144>
+ 8005308:	0004c403          	lbu	s0,0(s1)
+ 800530c:	00100b93          	li	s7,1
+ 8005310:	00278493          	addi	s1,a5,2
+ 8005314:	e95ff06f          	j	80051a8 <_strtol_l.isra.0+0x88>
+ 8005318:	03000793          	li	a5,48
+ 800531c:	00f41a63          	bne	s0,a5,8005330 <_strtol_l.isra.0+0x210>
+ 8005320:	0004c783          	lbu	a5,0(s1)
+ 8005324:	05800713          	li	a4,88
+ 8005328:	0df7f793          	andi	a5,a5,223
+ 800532c:	02e78663          	beq	a5,a4,8005358 <_strtol_l.isra.0+0x238>
+ 8005330:	01000913          	li	s2,16
+ 8005334:	e85ff06f          	j	80051b8 <_strtol_l.isra.0+0x98>
+ 8005338:	00058993          	mv	s3,a1
+ 800533c:	fbdff06f          	j	80052f8 <_strtol_l.isra.0+0x1d8>
+ 8005340:	0004c783          	lbu	a5,0(s1)
+ 8005344:	05800713          	li	a4,88
+ 8005348:	00800913          	li	s2,8
+ 800534c:	0df7f793          	andi	a5,a5,223
+ 8005350:	00800c93          	li	s9,8
+ 8005354:	e6e792e3          	bne	a5,a4,80051b8 <_strtol_l.isra.0+0x98>
+ 8005358:	0014c403          	lbu	s0,1(s1)
+ 800535c:	01000913          	li	s2,16
+ 8005360:	00248493          	addi	s1,s1,2
+ 8005364:	01000c93          	li	s9,16
+ 8005368:	e51ff06f          	j	80051b8 <_strtol_l.isra.0+0x98>
+
+0800536c <_strtol_r>:
+_strtol_r():
+ 800536c:	db5ff06f          	j	8005120 <_strtol_l.isra.0>
+
+08005370 <strtol_l>:
+strtol_l():
+ 8005370:	00000797          	auipc	a5,0x0
+ 8005374:	66078793          	addi	a5,a5,1632 # 80059d0 <_impure_ptr>
+ 8005378:	00060693          	mv	a3,a2
+ 800537c:	00058613          	mv	a2,a1
+ 8005380:	00050593          	mv	a1,a0
+ 8005384:	0007a503          	lw	a0,0(a5)
+ 8005388:	d99ff06f          	j	8005120 <_strtol_l.isra.0>
+
+0800538c <strtol>:
+strtol():
+ 800538c:	00000797          	auipc	a5,0x0
+ 8005390:	64478793          	addi	a5,a5,1604 # 80059d0 <_impure_ptr>
+ 8005394:	00060693          	mv	a3,a2
+ 8005398:	00058613          	mv	a2,a1
+ 800539c:	00050593          	mv	a1,a0
+ 80053a0:	0007a503          	lw	a0,0(a5)
+ 80053a4:	d7dff06f          	j	8005120 <_strtol_l.isra.0>
+
+080053a8 <__mulsi3>:
+__mulsi3():
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/muldi3.S:37
+ 80053a8:	00050613          	mv	a2,a0
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/muldi3.S:38
+ 80053ac:	00000513          	li	a0,0
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/muldi3.S:40
+ 80053b0:	0015f693          	andi	a3,a1,1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/muldi3.S:41
+ 80053b4:	00068463          	beqz	a3,80053bc <__mulsi3+0x14>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/muldi3.S:42
+ 80053b8:	00c50533          	add	a0,a0,a2
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/muldi3.S:44
+ 80053bc:	0015d593          	srli	a1,a1,0x1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/muldi3.S:45
+ 80053c0:	00161613          	slli	a2,a2,0x1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/muldi3.S:46
+ 80053c4:	fe0596e3          	bnez	a1,80053b0 <__mulsi3+0x8>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/muldi3.S:47
+ 80053c8:	00008067          	ret
+
+080053cc <__divsi3>:
+__divsi3():
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:69
+ 80053cc:	06054063          	bltz	a0,800542c <__umodsi3+0x10>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:70
+ 80053d0:	0605c663          	bltz	a1,800543c <__umodsi3+0x20>
+
+080053d4 <__udivsi3>:
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:74
+ 80053d4:	00058613          	mv	a2,a1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:75
+ 80053d8:	00050593          	mv	a1,a0
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:76
+ 80053dc:	fff00513          	li	a0,-1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:77
+ 80053e0:	02060c63          	beqz	a2,8005418 <__udivsi3+0x44>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:78
+ 80053e4:	00100693          	li	a3,1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:79
+ 80053e8:	00b67a63          	bgeu	a2,a1,80053fc <__udivsi3+0x28>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:81
+ 80053ec:	00c05863          	blez	a2,80053fc <__udivsi3+0x28>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:82
+ 80053f0:	00161613          	slli	a2,a2,0x1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:83
+ 80053f4:	00169693          	slli	a3,a3,0x1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:84
+ 80053f8:	feb66ae3          	bltu	a2,a1,80053ec <__udivsi3+0x18>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:86
+ 80053fc:	00000513          	li	a0,0
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:88
+ 8005400:	00c5e663          	bltu	a1,a2,800540c <__udivsi3+0x38>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:89
+ 8005404:	40c585b3          	sub	a1,a1,a2
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:90
+ 8005408:	00d56533          	or	a0,a0,a3
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:92
+ 800540c:	0016d693          	srli	a3,a3,0x1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:93
+ 8005410:	00165613          	srli	a2,a2,0x1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:94
+ 8005414:	fe0696e3          	bnez	a3,8005400 <__udivsi3+0x2c>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:96
+ 8005418:	00008067          	ret
+
+0800541c <__umodsi3>:
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:101
+ 800541c:	00008293          	mv	t0,ra
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:102
+ 8005420:	fb5ff0ef          	jal	ra,80053d4 <__udivsi3>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:103
+ 8005424:	00058513          	mv	a0,a1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:104
+ 8005428:	00028067          	jr	t0
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:109
+ 800542c:	40a00533          	neg	a0,a0
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:110
+ 8005430:	0005d863          	bgez	a1,8005440 <__umodsi3+0x24>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:111
+ 8005434:	40b005b3          	neg	a1,a1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:112
+ 8005438:	f9dff06f          	j	80053d4 <__udivsi3>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:114
+ 800543c:	40b005b3          	neg	a1,a1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:116
+ 8005440:	00008293          	mv	t0,ra
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:117
+ 8005444:	f91ff0ef          	jal	ra,80053d4 <__udivsi3>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:118
+ 8005448:	40a00533          	neg	a0,a0
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:119
+ 800544c:	00028067          	jr	t0
+
+08005450 <__modsi3>:
+__modsi3():
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:123
+ 8005450:	00008293          	mv	t0,ra
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:124
+ 8005454:	0005ca63          	bltz	a1,8005468 <__modsi3+0x18>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:125
+ 8005458:	00054c63          	bltz	a0,8005470 <__modsi3+0x20>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:127
+ 800545c:	f79ff0ef          	jal	ra,80053d4 <__udivsi3>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:128
+ 8005460:	00058513          	mv	a0,a1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:129
+ 8005464:	00028067          	jr	t0
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:131
+ 8005468:	40b005b3          	neg	a1,a1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:132
+ 800546c:	fe0558e3          	bgez	a0,800545c <__modsi3+0xc>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:134
+ 8005470:	40a00533          	neg	a0,a0
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:135
+ 8005474:	f61ff0ef          	jal	ra,80053d4 <__udivsi3>
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:136
+ 8005478:	40b00533          	neg	a0,a1
+/scratch/jenkins/workspace/tpp-freedom-tools/tpp03--build-binary-packages--parameterized/obj/x86_64-linux-ubuntu14/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/riscv64-unknown-elf/rv32i/ilp32/libgcc/../../../../../riscv-gcc/libgcc/config/riscv/div.S:137
+ 800547c:	00028067          	jr	t0
